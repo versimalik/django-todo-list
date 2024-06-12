@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block 'title' %}Login to Todolist{% endblock 'title' %}
+
+
+{% block 'content' %}    
+<div class="col-10 col-md-8 col-lg-6 mx-auto my-auto shadow p-4">
+    <div class="d-flex justify-content-between">
+        <h3 class="d-inline">
+            Login to Todo List
+        </h3>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class=mb-2>
+                <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+
+            <div class=mb-2>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+
+            <div class=mb-2>
+                <input type="submit" class="col-12 btn btn-primary" value="Login">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock 'content' %}
