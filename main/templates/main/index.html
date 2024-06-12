@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+
+    <main class="container">
+        <div class="row vh-100">
+            <div class="col-lg-6 col-md-8 col-11 p-3 m-auto border rounded-3 shadow">
+                <h1 class="p-2 text-primary text-center border-bottom">
+                    Django Todolist
+                </h1>
+                <form action="{% url 'todo-create' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="todo_text" class="form-control" placeholder="Your plan here" required>
+                        <input type="date" name="todo_due_date" class="form-control" required>
+                        <button type="submit" class="btn btn-primary" type="button">Button</button>
+                    </div>
+                </form>
+                <ul class="list-group list-group-flush overflow-auto" style="max-height: 300px;">                    
+                    {% for todo in todos %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="align-middle mb-0">                                        
+                                        {% if todo.status %}
+                                            <del>{{ todo.text }}</del>
+                                        {% else %}
+                                            {{ todo.text }}
+                                        {% endif %}                                            
+                                    </p>
+                                    <small>{{ todo.due_date|date:"l, d F o" }}</small>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn-group align-middle">
+                                        
+                                        {% if todo.status %}
+                                            <a href="{% url 'todo-update' todo.id %}" class="btn btn-secondary">Redo</a>
+                                        {% else %}
+                                            <a href="{% url 'todo-update' todo.id %}" class="btn btn-primary">Done</a>
+                                        {% endif %}                                            
+                                        
+                                        <a href="{% url 'todo-delete' todo.id %}" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>       
+</body>
+</html>
