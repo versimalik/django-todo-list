@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Todo Added</title>
+
+    <style>
+
+    .container{
+        width: 70%;
+        margin: auto;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+
+    .text-blue{
+        color: blue;
+    }
+
+    .text-underline{
+        text-decoration: underline;
+    }
+
+    </style>
+
+</head>
+<body>
+
+  <div class='container'>
+    <img width="100%" src="https://i.giphy.com/zaqclXyLz3Uoo.webp" alt="">
+  	<h1 class='text-center'>New Todo Added!</h1>
+    <h2 class='text-center text-underline'>{{ todo.text }}</h2>
+    <h3 class='text-center'>Due data: <span class="text-blue">{{ todo.due_date }}</span></h3>
+  </div>
+
+</body>
+</html>
