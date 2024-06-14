@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'main',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,5 +132,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your@email.com'
-EMAIL_HOST_PASSWORD = 'your-app-password'
+EMAIL_HOST_USER = 'rezamalikdrive@gmail.com'
+EMAIL_HOST_PASSWORD = 'skydxxpymsdqhiiz'
+
+MESSAGE_TAGS = {
+    messages.DEBUG : 'alert alert-secondary',
+    messages.INFO : 'alert alert-info',
+    messages.SUCCESS : 'alert alert-success',
+    messages.WARNING : 'alert alert-warning',
+    messages.ERROR : 'alert alert-danger',
+}

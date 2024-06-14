@@ -7,9 +7,18 @@
 <div class="col-lg-6 col-md-8 col-11 p-3 m-auto border rounded-3 shadow">
     <h1 class="p-2 text-primary text-center border-bottom">
         Django Todolist
+        
+        {% if request.user.is_superuser %}
+            <a class="btn btn-primary" href="admin/" style="cursor: pointer;" title="Go to Admin Panel">
+                <i class="bi bi-person-square"></i>
+            </a>
+        {% endif %}            
+        
         <form class="d-inline" action="/accounts/logout/" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Logout</button>
+            <button type="submit" class="btn btn-danger" style="cursor: pointer;" title="Logout">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
         </form>
     </h1>
     <p class="text-center">Welcome, {{ request.user.first_name }}</p>
@@ -19,9 +28,20 @@
         <div class="input-group mb-3">
             <input type="text" name="todo_text" class="form-control" placeholder="Your plan here" required>
             <input type="date" name="todo_due_date" class="form-control" required>
-            <button type="submit" class="btn btn-primary" type="button">Add</button>
+            <button type="submit" class="btn btn-primary" type="button" style="cursor: pointer;" title="Add new todo">
+                <i class="bi bi-plus-square"></i>
+            </button>
         </div>
     </form>
+
+    {% if messages  %}
+        
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}            
+        
+    {% endif %}        
+
     <ul class="list-group list-group-flush overflow-auto" style="max-height: 300px;">                    
         {% for todo in todos %}
             <li class="list-group-item {% if todo.status %}text-bg-dark{% endif %}">
@@ -40,12 +60,18 @@
                         <div class="btn-group align-middle">
                             
                             {% if todo.status %}
-                                <a href="{% url 'todo-update' todo.id %}" class="btn btn-secondary">Redo</a>
+                                <a href="{% url 'todo-update' todo.id %}" class="btn btn-secondary" style="cursor: pointer;" title="Set todo to NOT DONE">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </a>
                             {% else %}
-                                <a href="{% url 'todo-update' todo.id %}" class="btn btn-primary">Done</a>
+                                <a href="{% url 'todo-update' todo.id %}" class="btn btn-primary" style="cursor: pointer;" title="Set todo to DONE">
+                                    <i class="bi bi-check-lg"></i>
+                                </a>
                             {% endif %}                                            
                             
-                            <a href="{% url 'todo-delete' todo.id %}" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'todo-delete' todo.id %}" class="btn btn-danger" style="cursor: pointer;" title="Delete Todo">
+                                <i class="bi bi-x-lg"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

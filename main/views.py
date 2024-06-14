@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.contrib import messages
 
 # Create your views here.
 @login_required
@@ -24,6 +25,8 @@ def create(request):
     user = request.user
     create_todo = Todo(text = todo_text, due_date = todo_due_date, user = user)
     create_todo.save()
+
+    messages.success(request, f"\'{create_todo.text}\' is successfully added!")
 
     context = {'todo': create_todo}
     html_message = render_to_string('main/email/todo_added.html', context)
@@ -50,6 +53,8 @@ def update(request, todo_id):
     else:
         todo_status_message = "Not Done"
 
+    messages.info(request, f"\'{todo.text}\' is set to {todo_status_message}")
+
     message = "New Todo is updated!\n"  
     message += f"{todo.text} is set to {todo_status_message}\n"
     message += f"Due date: {todo.due_date}"
@@ -67,6 +72,8 @@ def update(request, todo_id):
 def delete(request, todo_id):
     todo = Todo.objects.get(id=todo_id)
     todo.delete()
+
+    messages.success(request, f"\'{todo.text}\' is deleted!")
 
     message = "Todo is deleted!\n"  
     message += f"{todo.text} is deleted\n"
